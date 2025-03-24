@@ -7,14 +7,18 @@ const BottomBar = ({ selectedSkip }) => {
       <div className="max-w-7xl mx-auto">
         <div className="lg:hidden">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-medium"></h3>
+            <div>
+              <h3 className="font-medium">{selectedSkip.size} Yard Skip</h3>
+              <span className="text-sm text-gray-400">
+                {selectedSkip.hire_period_days} days
+              </span>
+            </div>
+
             <div>
               <span className="text-xl font-bold text-[#0037C1]">
                 £{selectedSkip.price_before_vat}
               </span>
-              <span className="text-sm text-gray-400 ml-2">
-                {selectedSkip.hire_period_days} days
-              </span>
+              <span className="text-sm text-gray-400 ml-2">per week</span>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">

@@ -1,4 +1,14 @@
+# Waste Management Task
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Project Features
+
+- Dynamic Navigation Bar component for the top of the application
+- Bottom Bar component for navigation/actions
+- Skip Card component to display the skip options
+- Integration with Axios for fetching skip options data
+- Styled using TailwindCSS for modern, responsive design
 
 ## Getting Started
 
@@ -16,9 +26,13 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `components/NavBar` - Top navigation component
+- `components/BottomBar` - Bottom navigation/action bar
+- `components/SkipCard` - Component for displaying skip options
+- API integration using Axios to fetch skip options data
+- Responsive styling with TailwindCSS
 
 ## Learn More
 

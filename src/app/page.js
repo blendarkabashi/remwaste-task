@@ -171,7 +171,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 pb-32">
+        <div className=" pb-32">
           <h2 className="text-2xl font-bold text-center mb-4">
             Choose Your Skip Size
           </h2>

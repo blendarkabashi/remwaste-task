@@ -1,8 +1,40 @@
+"use client";
 import Image from "next/image";
 import Button from "./components/Button";
 import BottomBar from "./components/BottomBar";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import SkipCard from "./components/SkipCard";
 
 export default function Home() {
+  const [selectedSkip, setSelectedSkip] = useState(null);
+  const [skipOptions, setSkipOptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchSkips = async () => {
+      try {
+        const response = await axios.get(
+          "https://app.wewantwaste.co.uk/api/skips/by-location",
+          {
+            params: {
+              postcode: "NR32",
+              area: "Lowestoft",
+            },
+          }
+        );
+        setSkipOptions(response.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSkips();
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#121212] text-white">
       <main className="max-w-7xl mx-auto px-4 py-8">
@@ -147,81 +179,16 @@ export default function Home() {
             Select the skip size that best suits your needs
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            <div className="group relative rounded-lg border-2 p-4 md:p-6 transition-all border-[#0037C1] bg-[#1C1C1C] text-white cursor-pointer">
-              <div className="absolute top-3 right-3 md:top-4 md:right-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-check w-5 h-5 md:w-6 md:h-6 text-[#0037C1]"
-                >
-                  <path d="M20 6 9 17l-5-5"></path>
-                </svg>
-              </div>
-              <div className="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1590496793929-36417d3117de?q=80&amp;w=800"
-                  alt="40 Yard Skip"
-                  className="w-full h-36 md:h-48 object-cover rounded-md mb-4"
-                />
-                <div className="absolute top-3 right-2 z-20 bg-[#0037C1] text-white px-3 py-1 rounded-full text-sm font-medium shadow-md">
-                  40 Yards
-                </div>
-                <div className="absolute bottom-3 left-2 z-20 space-y-2">
-                  <div className="bg-black/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-alert-triangle w-4 h-4 text-yellow-500 shrink-0"
-                    >
-                      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
-                      <path d="M12 9v4"></path>
-                      <path d="M12 17h.01"></path>
-                    </svg>
-                    <span className="text-xs font-medium text-yellow-500">
-                      Private Property Only
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <h3 className="text-lg md:text-xl font-bold mb-2 text-white">
-                40 Yard Skip
-              </h3>
-              <p className="text-sm text-gray-400 mb-4 md:mb-6">
-                14 day hire period
-              </p>
-              <div className="flex justify-between items-center mb-4">
-                <div>
-                  <span className="text-xl md:text-2xl font-bold text-[#0037C1]">
-                    £836
-                  </span>
-                  <span className="text-sm text-gray-400 ml-2">per week</span>
-                </div>
-              </div>
-              <button
-                className="w-full py-2.5 md:py-3 px-4 rounded-md transition-all flex items-center justify-center space-x-2
-          bg-[#0037C1] text-white hover:bg-[#002da1]
-          false"
-              >
-                <span>Selected</span>
-              </button>
-            </div>
+            {skipOptions.map((skip) => (
+              <SkipCard
+                isSelected={selectedSkip == skip}
+                setSelectedSkip={setSelectedSkip}
+                skip={skip}
+              />
+            ))}
           </div>
         </div>
-        <BottomBar />
+        <BottomBar selectedSkip={selectedSkip} />
       </main>
     </div>
   );

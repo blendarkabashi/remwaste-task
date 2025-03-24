@@ -1,6 +1,7 @@
 import React from "react";
+import Button from "../Button";
 
-const BottomBar = () => {
+const BottomBar = ({ selectedSkip }) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-[#1C1C1C] border-t border-[#2A2A2A] p-4 animate-slideUp z-50">
       <div className="max-w-7xl mx-auto">
@@ -8,8 +9,12 @@ const BottomBar = () => {
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-medium"></h3>
             <div>
-              <span className="text-xl font-bold text-[#0037C1]">£</span>
-              <span className="text-sm text-gray-400 ml-2">7 days</span>
+              <span className="text-xl font-bold text-[#0037C1]">
+                £{selectedSkip.price_before_vat}
+              </span>
+              <span className="text-sm text-gray-400 ml-2">
+                {selectedSkip.hire_period_days} days
+              </span>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -28,12 +33,16 @@ const BottomBar = () => {
         <div className="hidden lg:flex items-center justify-between">
           <div className="flex items-center gap-6">
             <div>
-              <h3 className="font-medium"></h3>
-              <p className="text-sm text-gray-400">40</p>
+              <h3 className="font-medium">{selectedSkip.size} Yard Skip</h3>
+              <p className="text-sm text-gray-400">
+                {selectedSkip.hire_period_days} day hire
+              </p>
             </div>
             <div>
-              <span className="text-2xl font-bold text-[#0037C1]">£</span>
-              <span className="text-sm text-gray-400 ml-2">7 day hire</span>
+              <span className="text-2xl font-bold text-[#0037C1]">
+                £{selectedSkip.price_before_vat}
+              </span>
+              <span className="text-sm text-gray-400 ml-2">per week</span>
             </div>
           </div>
           <div className="flex items-center gap-4">

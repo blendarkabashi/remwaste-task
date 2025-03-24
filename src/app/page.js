@@ -48,14 +48,20 @@ export default function Home() {
             Select the skip size that best suits your needs
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {skipOptions.map((skip) => (
-              <SkipCard
-                key={skip.id}
-                isSelected={selectedSkip == skip}
-                setSelectedSkip={setSelectedSkip}
-                skip={skip}
-              />
-            ))}
+            {isLoading ? (
+              <div className="col-span-full flex justify-center">
+                <div className="w-8 h-8 border-4 border-[#0037C1] border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            ) : (
+              skipOptions.map((skip) => (
+                <SkipCard
+                  key={skip.id}
+                  isSelected={selectedSkip == skip}
+                  setSelectedSkip={setSelectedSkip}
+                  skip={skip}
+                />
+              ))
+            )}
           </div>
         </div>
         {selectedSkip && <BottomBar selectedSkip={selectedSkip} />}
